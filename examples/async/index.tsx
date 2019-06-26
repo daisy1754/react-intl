@@ -1,7 +1,10 @@
+import 'intl-pluralrules/polyfill';
+import '@formatjs/intl-relativetimeformat/polyfill';
+import '@formatjs/intl-relativetimeformat/dist/locale-data/nl';
+import '@formatjs/intl-relativetimeformat/dist/locale-data/en';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {IntlProvider, FormattedMessage} from 'react-intl';
-import request from 'superagent';
 
 const App = () => (
   <h1>
@@ -10,19 +13,11 @@ const App = () => (
 );
 
 class Root extends Component {
-  constructor() {
-    super();
-    this.state = {
-      translations: null,
-    };
-  }
-
-  componentWillMount() {
-    request.get('/translations', (err, res) => {
-      this.setState({
-        translations: res.body,
-      });
-    });
+  state = {
+    translations: {
+      hello: 'hello',
+      world: 'world'
+    }
   }
 
   render() {
@@ -30,7 +25,7 @@ class Root extends Component {
 
     if (this.state.translations) {
       children = (
-        <IntlProvider locale="en" messages={this.state.translations}>
+        <IntlProvider defaultLocale="nl" locale="nl" messages={this.state.translations}>
           <App />
         </IntlProvider>
       );
