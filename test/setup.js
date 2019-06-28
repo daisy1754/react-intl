@@ -2,6 +2,7 @@ import {configure} from 'enzyme';
 import * as React from 'react';
 import 'intl-pluralrules';
 import '@formatjs/intl-relativetimeformat/polyfill-locales';
+import 'intl-messageformat'
 
 let reactMajorVersion = Number.parseInt(React.version.slice(0, 2));
 if (reactMajorVersion === 0) {

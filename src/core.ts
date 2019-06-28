@@ -3,12 +3,7 @@
  * Copyrights licensed under the New BSD License.
  * See the accompanying LICENSE file for terms.
  */
-import parser from 'intl-messageformat-parser'
-import IntlMessageFormat from 'intl-messageformat/lib/core'
-IntlMessageFormat.__parse = parser.parse
 
-// Have to repeat this bc rollup issue where it
-// puts all `export * from './core'` under `default` export
 export * from './types';
 export {default as defineMessages} from './define-messages';
 
@@ -27,4 +22,3 @@ export {default as FormattedNumber} from './components/number';
 export {default as FormattedPlural} from './components/plural';
 export {default as FormattedMessage} from './components/message';
 export {default as FormattedHTMLMessage} from './components/html-message';
-export {generateIntlContext} from './test-utils';

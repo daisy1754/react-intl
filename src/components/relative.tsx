@@ -8,7 +8,12 @@ import * as React from 'react';
 import withIntl from './injectIntl';
 import {IntlShape, FormatRelativeTimeOptions} from '../types';
 import {Unit} from '@formatjs/intl-relativetimeformat';
-import * as invariant from 'invariant';
+import * as invariant_ from 'invariant';
+// Since rollup cannot deal with namespace being a function,
+// this is to interop with TypeScript since `invariant`
+// does not export a default
+// https://github.com/rollup/rollup/issues/1267
+const invariant = invariant_;
 
 const MINUTE = 60;
 const HOUR = 60 * 60;

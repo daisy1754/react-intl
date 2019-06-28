@@ -4,7 +4,7 @@
  * See the accompanying LICENSE file for terms.
  */
 import {Formats} from 'intl-messageformat/lib/compiler';
-import IntlMessageFormat from 'intl-messageformat';
+import IntlMessageFormat from 'intl-messageformat/lib/core';
 import IntlRelativeTimeFormat, {
   IntlRelativeTimeFormatOptions,
   FormattableUnit,

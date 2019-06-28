@@ -14,7 +14,29 @@ const copyright = `/*
  */
 `;
 
-export default {
+const plugins = [
+  replace({
+    replaces: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    },
+  }),
+  nodeResolve(),
+  typescript({
+    target: 'es5',
+    module: 'commonjs',
+    include: ['*.js+(|x)', '**/*.js+(|x)']
+  }),
+  commonjs({
+    sourcemap: true,
+  }),
+  isProduction &&
+    uglify({
+      warnings: false,
+    }),
+].filter(Boolean)
+
+export default [
+  {
   input: p.resolve('lib/index.js'),
   output: {
     file: p.resolve(`dist/react-intl.${isProduction ? 'min.js' : 'js'}`),
@@ -28,24 +50,23 @@ export default {
     },
   },
   external: ['react'],
-  plugins: [
-    replace({
-      replaces: {
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      },
-    }),
-    nodeResolve(),
-    typescript({
-      target: 'es5',
-      module: 'commonjs',
-      include: ['*.js+(|x)', '**/*.js+(|x)'],
-    }),
-    commonjs({
-      sourcemap: true,
-    }),
-    isProduction &&
-      uglify({
-        warnings: false,
-      }),
-  ].filter(Boolean),
-};
+  plugins,
+},
+{
+  input: p.resolve('lib/core.js'),
+  output: {
+    file: p.resolve(`dist/react-intl-core.${isProduction ? 'min.js' : 'js'}`),
+    format: 'umd',
+    name: 'ReactIntl',
+    banner: copyright,
+    exports: 'named',
+    sourcemap: true,
+    globals: {
+      react: 'React',
+    },
+  },
+  external: ['react'],
+  plugins,
+}
+]
+
